@@ -14,9 +14,38 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Nirankar Singh",
   "license": "CC0-1.0",
+  "build": {
+    "appId": "gst",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
+  },
+  "dependencies": {},
   "devDependencies": {
-    "electron": "^2.0.0"
+    "electron": "latest",
+    "electron-builder": "latest"
   }
 }
