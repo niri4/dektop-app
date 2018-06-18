@@ -1,12 +1,12 @@
 {
-  "name": "electron-quick-start",
+  "name": "Shaperzz-Billing-App",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A Shaperzz Billing App",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/niri4/dektop-app",
   "keywords": [
     "Electron",
     "quick",

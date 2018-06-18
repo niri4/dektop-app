@@ -21,7 +21,7 @@ function ListDBValues() {
                    console.log(result.rows)
                    for (var i = 0; i < result.rows.length; i++) {
                        var row = result.rows.item(i);
-                       console.log(row.Name)
+                       console.log(row.name)
                        $('#contact_id').append("<tr>" + "\n" + "<td>" + row.Id + "</td>" + "\n" + "<td>" + row.name + "</td>" +
                            "\n"  + "<td>" + row.address + "</td>" + "\n"  + "<td>" + row.state + "</td>" + "\n"  + "<td>" + row.place + "</td>" +"\n" + "<td>" + "<button class='btn btn-primary' id='del' value=" + row.Id +  "> Delete</button>" +  "</td>" + "\n" +  "</tr>");
                    }
