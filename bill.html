@@ -133,7 +133,7 @@
                             <input type="radio" id="sub_type" name="sub_type" value="Exibiton_on_Fares"> Exibiton on Fares
                           </label>
                           <label class="checkbox-inline">
-                            <input type="radio" id="sub_type" name="sub_type" value="live_sales"> Live Sales
+                            <input type="radio" id="sub_type" name="sub_type" value="line_sales"> Line Sales
                           </label>
                           <label class="checkbox-inline">
                             <input type="radio" id="sub_type" name="sub_type" value="others"> Others
@@ -141,11 +141,20 @@
                     </div>
                     <div class="form-group">
                       <label for="document_type">Document Type</label>
-                      <input type="text" class="form-control" id="document_type" placeholder="Document Type" required>
+                      <select id="document_type" class="form-control" required>
+                        <option>Please Select</option>
+                        <option value="tax_invoice">Tax Invoice</option>
+                        <option value="bill_of_supply">Bill Of Supply</option>
+                        <option value="bill_of_entry">Bill Of Entry</option>
+                        <option value="delivery_challen">Delivery Challen</option>
+                        <option value="credit_note">Credit Note</option>
+                        <option value="other">Other</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="document_no">Document No</label>
-                      <input type="text" class="form-control" id="document_no" placeholder="Document No" required>                    </div>
+                      <input type="text" class="form-control" id="document_no" placeholder="Document No" required>
+                    </div>
                     <div class="form-group">
                       <label for="document_date"> Document Date</label>
                       <input type="date" class="form-control" id="document_date" placeholder="Document Date" required>
@@ -246,10 +255,99 @@
 
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Item Details(Need to be Make)</h3>
+                  <h3 class="box-title">Item Details</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  <div id="selection">
+                  <table id="mytable" class="table">
+                    <thead>
+                        <th style="text-align:center;">Product Name</th>
+                        <th style="text-align:center;">Description</th>
+                        <th style="text-align:center;">HSN</th>
+                        <th style="text-align:center;">Quantity</th>
+                        <th style="text-align:center;">Unit</th>
+                        <th style="text-align:center;">Value/Taxable value</th>
+                        <th colspan="4"style="text-align:center;">Tax Rate (C + S + I + Cess)</th>
+                    </thead>
 
+                    <tbody id="product_id">
+                        <tr>
+                            <td>
+                              <select id="product_select" class="form-control" name="product_select">
+                              </select>
+                            </td>
+                            <td>
+                                <input type="text" id="product_description" name="product_description" class="form-control" placeholder="Description">
+                            </td>
+                            <td>
+                                <input type="text" id="hsn" name="hsn" class="form-control" placeholder="HSN">
+                            </td>
+                            <td>
+                                <input type="number" id="quantity" name="quantity" class="form-control change" placeholder="quantity" min="1" required value="1">
+                            </td>
+                            <td>
+                                <input type="text" id="unit" name="unit" class="form-control change" placeholder="KG" required>
+                            </td>
+                            <td>
+                                <input type="number" id="taxable_value" name="taxable_value" class="form-control change" placeholder="Value" min="0" required>
+                            </td>
+                            <td>
+                              <input type="number" id="cgst" name="cgst" class="form-control change" placeholder="CGST Value" min="0" value="0">
+                            </td>
+                            <td>
+                              <input type="number" id="sgst" name="sgst"class="form-control change" placeholder="SGST Value" min="0" value="0">
+                            </td>
+                            <td>
+                              <input type="number" id="igst" name="igst" class="form-control change" placeholder="IGST Value" min="0" value="0">
+                            </td>
+                            <td>
+                              <input type="number" id="cess"  name="cess" class="form-control change" placeholder="CESS Value" min="0" value="0">
+                            </td>
+                            <td><button class="delete_row btn btn-primary change" ><i class="fa fa-trash"></i></button></td>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div class="col-md-12">
+                  <a id="insert-more" class="btn btn-primary change"> <i class="fa fa-plus"></i> </a>
+                </div>
+
+                <table class="table">
+                  <thead>
+                    <th> Total Value/Taxable value</th>
+                    <th>CGST Amount</th>
+                    <th>SGST Amount</th>
+                    <th>IGST Amount</th>
+                    <th>CESS Amount</th>
+                    <th>Total Amount</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" id="total_taxable_value" name="total_taxable_value" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="cgst_amount" name="cgst_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="sgst_amount" name="sgst_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="igst_amount" name="igst_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="cess_amount"  name="cess_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="total_amount" name="total_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
