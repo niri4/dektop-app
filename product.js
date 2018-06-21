@@ -34,7 +34,6 @@ function ListDBValues() {
 
 $(document).on('click', '#del', function () {
   var isd = $(this).val();
-  alert(isd);
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
        tx.executeSql("DELETE FROM Product WHERE Id =" + isd );

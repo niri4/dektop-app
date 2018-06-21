@@ -1,7 +1,6 @@
-//This is for Listing values present in the database
-// this is called when an error happens in a transaction
+var global_hash = {};
 function errorHandler(transaction, error) {
-  //alert('Error: ' + error.message + ' code: ' + error.code);
+  alert('Error: ' + error.message + ' code: ' + error.code);
    console.log('Error: ' + error.message + ' code: ' + error.code);
 }
 
@@ -35,6 +34,7 @@ $(document.body).on('click', '.change1', function()
     hash[key[j]] = hash_change(row_num - 1 , hash[key[j]])
 
   }
+  global_hash = hash;
   console.log(hash);
 
 });
@@ -67,13 +67,13 @@ function calculate_hash_on_delete(hash,index){
     if (cess_ar[index] != null){
       cess_val = cess_val - ( (f * cess_ar[index])/100 );
     }
-
-  alert(parseInt(cgst_val));
+  var totl = total_val + cgst_val + sgst_val + igst_val + cess_val;
   $('#total_taxable_value').val(total_val);
   $('#cgst_amount').val(cgst_val);
   $('#sgst_amount').val(sgst_val);
   $('#igst_amount').val(igst_val);
   $('#cess_amount').val(cess_val);
+  $('#total_amount').val(totl);
 
 
 }
@@ -115,6 +115,7 @@ $(document.body).on('change', '.change', function()
   // alert("hash");
   // alert(hash["unit"]);
   console.log(hash);
+  global_hash = hash;
   calculate_hash(hash);
 })
 
@@ -149,12 +150,13 @@ function  calculate_hash(hash){
 
 
   }
-  alert(parseInt(cgst_val));
+  var totl = total_val + cgst_val + sgst_val + igst_val + cess_val;
   $('#total_taxable_value').val(total_val);
   $('#cgst_amount').val(cgst_val);
   $('#sgst_amount').val(sgst_val);
   $('#igst_amount').val(igst_val);
   $('#cess_amount').val(cess_val);
+  $('#total_amount').val(totl);
 
 }
 
@@ -239,7 +241,7 @@ function ListDBValues() {
                    }
                }
            }, errorHandler);
-   }, errorHandler, nullHandler);
+   }, errorHandler, nullHandler1);
 
    return;
 }
@@ -260,7 +262,7 @@ function ListDBProductValues() {
                    }
                }
            }, errorHandler);
-   }, errorHandler, nullHandler);
+   }, errorHandler, nullHandler1);
 
    return;
 }
@@ -287,7 +289,7 @@ $(document).on('change', '#biller_name', function () {
                    }
                }
            }, errorHandler);
-   }, errorHandler, nullHandler);
+   }, errorHandler, nullHandler1);
 })
 
 
@@ -308,7 +310,7 @@ $(document).on('change', '#product_select', function () {
                     }
                 }
             }, errorHandler);
-    }, errorHandler, nullHandler);
+    }, errorHandler, nullHandler1);
 
 
 
@@ -329,13 +331,23 @@ var row_num =0;
 
   })
 
+function nullHandler1() {};
+$(document).ready(function () {
+   // Opening a existing database or creating a new one if don't exist
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (tx) {
+       // Create a table in if not exist
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Contact(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL ,city TEXT NOT NULL ,state TEXT NOT NULL,address1 TEXT,country TEXT NOT NULL, place TEXT NOT NULL,pincode TEXT NOT NULL,gstin TEXT NOT NULL) ', [], nullHandler1, errorHandler);
+   }, errorHandler, successCallBack);
+});
+
 function nullHandler() {};
 $(document).ready(function () {
    // Opening a existing database or creating a new one if don't exist
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Contact(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL ,city TEXT NOT NULL ,state TEXT NOT NULL,address1 TEXT,country TEXT NOT NULL, place TEXT NOT NULL,pincode TEXT NOT NULL,gstin TEXT NOT NULL) ', [], nullHandler, errorHandler);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT) ', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack);
 });
 // this is called when a successful transaction happens
@@ -343,3 +355,11 @@ function successCallBack() {
    console.log("DEBUGGING: success");
 
 }
+
+$(document).on('click', '#submit', function () {
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (tx) {
+       tx.executeSql('INSERT INTO Transcation (transcation_type, sub_type,document_type,document_no,document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$('#transcation_type').val(), $('#sub_type').val(), $('#document_type').val(), $('#document_no').val(), $('#document_date').val(),  $('#ownwer_name').val(), $('#owmer_gstin').val(), $('#ownwer_address').val(), $('#ownwer_address1').val(),$('#owner_place').val(), $('#owner_state').val(), $('#owner_pincode').val(),$('#biller_name').val(),$('#biller_gstin').val(),$('#biller_state').val(),$('#shipping_address').val(),$('#shipping_address1').val(),$('#shiping_place').val(),$('#shiping_state').val(),$('#shiping_pincode').val(),global_hash["product_select"],global_hash["product_description"],global_hash["hsn"],global_hash["quantity"],global_hash["unit"],global_hash["taxable_value"],global_hash["cgst"],global_hash["sgst"],global_hash["igst"],global_hash["cess"],$('#total_taxable_value').val(),$('#cgst_amount').val(),$('#sgst_amount').val(),$('#igst_amount').val(),$('#cess_amount').val(),$('#total_amount').val()], nullHandler, errorHandler);
+   });
+   window.location.href="./transcation.html";
+})
