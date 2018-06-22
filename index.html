@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>GST App</title>
+    <title>Shaperzz Billing App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -11,39 +11,71 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   </head>
-  <body style= "background-color: #4286f4;">
-<div class="container border border-dark">
-  <div id="background">
-  <p id="bg-text">Sky Trade International</p>
-  </div>
+  <body>
+    <div id="loader" class="intial_c">
+      <div class="loader"></div>
+      <p style="text-align: center;"> pLease Wait</p>
+    </div>
+<div class="container" id="class_access">
+  <div class="h-100 row align-items-center">
+    <div class="col">
+    <div class="form-group">
+      <input type="Email" id="email" placeholder="Email" class="form-control"/></br>
 
-  <div id="content">
-    <a href="./product.html">Product</a>
-  <a href="./contactus.html">Contact</a>
-  <a href="./product2.html">prodyct</a>
-      <h1>GST App</h1>
-      <!-- All of the Node.js APIs are available in this renderer process. -->
-      We are using Node.js <script>document.write(process.versions.node)</script>,
-      Chromium <script>document.write(process.versions.chrome)</script>,
-      and Electron <script>document.write(process.versions.electron)</script>.
-      <select id="msgbox">
-      </select>
 
-    <input type="text" id="name" placeholder="Name" /></br>
-    <input type="text" id="msg" placeholder="Message" /></br>
-    <input type="button" value="Add Message" id="submit">
-    <input type="button" value="Refresh" onClick="ListDBValues()"> <br>
+      <div class="form-group">
+        <input type="text" id="access_token" placeholder="Access Token" class="form-control" /></br>
+      </div>
+      <div class="form-group">
+        <input type="submit" id="submit" class="btn btn-success">
+      </div>
+    </div>
   </div>
 </div>
+</div>
     <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-      require('./db.js')
+      // You can also require other files to run in this proces
+       require('./db.js')
     </script>
   </body>
 </html>
 <style>
-#background{
+html,
+body {
+    height: 100%;
+}
+
+    .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.intial_c{
+  display: none;
+}
+.loader {
+  margin-left: 45%;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* #background{
     position:absolute;
     z-index:0;
     background:white;
@@ -55,7 +87,7 @@
     display: flex;
   /* flex-direction: column;*/
   align-items: center;
-}
+} */
 
 #content{
     position:absolute;

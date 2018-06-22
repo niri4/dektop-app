@@ -235,13 +235,12 @@ function ListDBValues() {
                    console.log(result.rows)
                    for (var i = 0; i < result.rows.length; i++) {
                        var row = result.rows.item(i);
-                       console.log(row.Name)
-                       $('#biller_name').append("<option value=" + row.Id + ">" + row.Id + '. ' +
+                       $('#biller_name').append("<option value=" + row.name + " id= " + row.Id + ">" + row.Id + '. ' +
                            row.name +   "</option>");
                    }
                }
            }, errorHandler);
-   }, errorHandler, nullHandler1);
+   }, errorHandler, nullHandler2);
 
    return;
 }
@@ -256,8 +255,7 @@ function ListDBProductValues() {
                    console.log(result.rows)
                    for (var i = 0; i < result.rows.length; i++) {
                        var row = result.rows.item(i);
-                       console.log(row.Name)
-                       $('#product_select').append("<option value=" + row.Id + ">" + row.Id + '. ' +
+                       $('#product_select').append("<option value=" + row.product_name + " id= " + row.Id + ">" + row.Id + '. ' +
                            row.product_name +   "</option>");
                    }
                }
@@ -268,7 +266,8 @@ function ListDBProductValues() {
 }
 
 $(document).on('change', '#biller_name', function () {
-  var isd = $(this).val();
+  var isd = $(this).children(":selected").attr("id");
+  alert(isd);
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (transaction) {
        transaction.executeSql("SELECT * FROM Contact WHERE Id =" + isd + ";", [],
@@ -294,7 +293,7 @@ $(document).on('change', '#biller_name', function () {
 
 
 $(document).on('change', '#product_select', function () {
-  var isd = $(this).val();
+    var isd = $(this).children(":selected").attr("id");
 
   $(this).closest('tr').find("input[id='hsn']").each(function() {
 
@@ -310,7 +309,7 @@ $(document).on('change', '#product_select', function () {
                     }
                 }
             }, errorHandler);
-    }, errorHandler, nullHandler1);
+    }, errorHandler, nullHandler2);
 
 
 
@@ -341,25 +340,43 @@ $(document).ready(function () {
    }, errorHandler, successCallBack);
 });
 
+function nullHandler2() {};
+$(document).ready(function () {
+   // Opening a existing database or creating a new one if don't exist
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (tx) {
+       // Create a table in if not exist
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Product(Id INTEGER NOT NULL PRIMARY KEY, product_name TEXT NOT NULL, product_price TEXT NOT NULL,product_code TEXT)', [], nullHandler, errorHandler);
+   }, errorHandler, successCallBack);
+});
+
 function nullHandler() {};
 $(document).ready(function () {
    // Opening a existing database or creating a new one if don't exist
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT) ', [], nullHandler, errorHandler);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT,tansporter_name TEXT,transporter_id TEXT,approxiamate_distance TEXT,mode TEXT,vehicle_type TEXT,vehicle_no TEXT) ', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack);
 });
 // this is called when a successful transaction happens
 function successCallBack() {
    console.log("DEBUGGING: success");
 
+
 }
 
-$(document).on('click', '#submit', function () {
+$(document).on('click', '#submit', function (e) {
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
-       tx.executeSql('INSERT INTO Transcation (transcation_type, sub_type,document_type,document_no,document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$('#transcation_type').val(), $('#sub_type').val(), $('#document_type').val(), $('#document_no').val(), $('#document_date').val(),  $('#ownwer_name').val(), $('#owmer_gstin').val(), $('#ownwer_address').val(), $('#ownwer_address1').val(),$('#owner_place').val(), $('#owner_state').val(), $('#owner_pincode').val(),$('#biller_name').val(),$('#biller_gstin').val(),$('#biller_state').val(),$('#shipping_address').val(),$('#shipping_address1').val(),$('#shiping_place').val(),$('#shiping_state').val(),$('#shiping_pincode').val(),global_hash["product_select"],global_hash["product_description"],global_hash["hsn"],global_hash["quantity"],global_hash["unit"],global_hash["taxable_value"],global_hash["cgst"],global_hash["sgst"],global_hash["igst"],global_hash["cess"],$('#total_taxable_value').val(),$('#cgst_amount').val(),$('#sgst_amount').val(),$('#igst_amount').val(),$('#cess_amount').val(),$('#total_amount').val()], nullHandler, errorHandler);
+       tx.executeSql('INSERT INTO Transcation (transcation_type, sub_type,document_type,document_no,document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount,tansporter_name,transporter_id,approxiamate_distance,mode,vehicle_type,vehicle_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$('input[name=transcation_type]:checked').val(), $('input[name=sub_type]:checked').val(), $('#document_type').val(), $('#document_no').val(), $('#document_date').val(),  $('#ownwer_name').val(), $('#owmer_gstin').val(), $('#ownwer_address').val(), $('#ownwer_address1').val(),$('#owner_place').val(), $('#owner_state').val(), $('#owner_pincode').val(),$('#biller_name').val(),$('#biller_gstin').val(),$('#biller_state').val(),$('#shipping_address').val(),$('#shipping_address1').val(),$('#shiping_place').val(),$('#shiping_state').val(),$('#shiping_pincode').val(),global_hash["product_select"],global_hash["product_description"],global_hash["hsn"],global_hash["quantity"],global_hash["unit"],global_hash["taxable_value"],global_hash["cgst"],global_hash["sgst"],global_hash["igst"],global_hash["cess"],$('#total_taxable_value').val(),$('#cgst_amount').val(),$('#sgst_amount').val(),$('#igst_amount').val(),$('#cess_amount').val(),$('#total_amount').val(),$('#tansporter_name').val(),$('#transporter_id').val(),$('#approxiamate_distance').val(),$('input[name=mode]:checked').val(),$('input[name=vehicle_type]:checked').val(),$('#vehicle_no').val()], nullHandler, errorHandler);
    });
-   window.location.href="./transcation.html";
+   let myNotification = new Notification('Shaperzz Bill', {
+     body: 'Bill Created Successfully'
+   })
+
+   myNotification.onclick = () => {
+     console.log('Notification clicked')
+   }
+
 })

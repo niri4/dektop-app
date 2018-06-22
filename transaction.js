@@ -76,6 +76,12 @@ function  particular_ele(isd){
                     "<tr>" + '\n' +"<th>" + "Total IGST Amount" + "</th>" +  "\n" + "<td>" + row.igst_amount + "</td>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "CESS" + "</th>" +  "\n" + "<td>" + row.sgst + "%"+ "</td>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Total CESS Amount" + "</th>" +  "\n" + "<td>" + row.cess_amount +"</td>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Tansporter Name" + "</th>" +  "\n" + "<th>" + row.tansporter_name +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Transporter Id" + "</th>" +  "\n" + "<th>" + row.transporter_id +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Approxiamate Distance" + "</th>" +  "\n" + "<th>" + row.approxiamate_distance +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Mode" + "</th>" +  "\n" + "<th>" + row.mode +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Vehicle Type" + "</th>" +  "\n" + "<th>" + row.vehicle_type +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Vehicle Number" + "</th>" +  "\n" + "<th>" + row.vehicle_no +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Total Amount" + "</th>" +  "\n" + "<th>" + row.total_amount +  "</th>" + "\n" + " </tr>" + "\n"
                   );
                   }
@@ -84,7 +90,6 @@ function  particular_ele(isd){
   }, errorHandler, nullHandler);
 
   return;
-
 }
 $(document).on('click', '#del', function () {
   var isd = $(this).val();
