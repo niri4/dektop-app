@@ -23,7 +23,7 @@ function ListDBValues() {
                        var row = result.rows.item(i);
                        console.log(row.transcation_type);
                        $('#transcation_id').append("<tr>" + "\n" + "<td>" + row.Id + "</td>" + "\n" + "<td>" + row.transcation_type + "</td>" +
-                           "\n"  + "<td>" + row.sub_type + "</td>" + "\n" + "<td>" + row.document_type + "</td>" +  "\n" +  "<td>" + row.document_no + "</td>" + "\n" +  "<td>" +  "<button class='btn btn-primary'  id='modeltrans' value=" + row.Id +  "> Detail</button>" + "</td>" + "\n" + "<td>" + "<button class='btn btn-primary' id='del' value=" + row.Id +  "> Delete</button>" +  "</td>" + "\n" +  "</tr>");
+                           "\n"  + "<td>" + row.sub_type + "</td>" + "\n" + "<td>" + row.document_type + "</td>" +  "\n" +  "<td>" + row.document_no + "</td>" + "\n" +  "<td>" +  "<button class='btn btn-primary'  id='modeltrans' value=" + row.Id +  "> Detail</button>" + "</td>" + "\n" + "<td>" + "<button class='btn btn-primary' id='del' value=" + row.Id +  "> Delete</button>" +  "</td>"+ "\n" + "<td>" + "<button class='btn btn-success' id='print' value=" + row.Id +  "> Print</button>" +  "</td>" + "\n" +  "</tr>");
                    }
                }
            }, errorHandler);
@@ -99,6 +99,14 @@ $(document).on('click', '#del', function () {
    });
    ListDBValues();
 })
+
+$(document).on('click', '#print', function () {
+  var isd = $(this).val();
+
+     window.location = './invoice.html?id=' + isd;
+
+})
+
 
 function nullHandler() {};
 $(document).ready(function () {

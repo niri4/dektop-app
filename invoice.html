@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
     <script src="./jquery/jquery-3.2.1.slim.min.js"></script>
     <script src="./jquery/popper.min.js" ></script>
-    <script src="./jquery/jquery.min.js"></script> 
+    <script src="./jquery/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -16,9 +16,10 @@
     <div id="background">
     <p id="bg-text">SKY TRADE INTERNATIONAL</p>
     </div>
+    <a href="./transcation.html" class="btn btn-primary">Back</a>
     <div class="container">
       <div class="col-md-12">
-        <div class="col-md-6 float-left"><p>gstavsvlvrie</p>
+        <div class="col-md-6 float-left"><p id="owner_gst">gstavsvlvrie</p>
         </div>
         <div class="col-md-6 float-right"><p style="float: right;">Original Copy</p>
           <button onclick="print_page()"><i class="fa fa-print" aria-hidden="true"></i></button>
@@ -31,9 +32,9 @@
 <div class="row border-bottom border-dark">
   <div class="col-md-12 text-center">
     <h4><u>Text Invoive</u></h4>
-    <h4>SKY TRADE INTERNATIONAL</h4>
-    <p>37, Randhir Singh Complex Ghumar Mandi</p>
-    <p>Ludhiana,Punjab</p>
+    <h4 id="owner_name">SKY TRADE INTERNATIONAL</h4>
+    <p id="owner_address">37, Randhir Singh Complex Ghumar Mandi</p>
+    <p id= "owner_place_and_state">Ludhiana,Punjab</p>
     <p>M - 8528960766</p>
     <p>PAN - BHHPS1573B</p>
     <p></p>
@@ -42,10 +43,10 @@
     <div class="row border-bottom border-dark">
       <div class="col-md-6 border-right border-dark">
         <p>Party Detail</p>
-        <p>SHRI RANI SATI ASSOCIATIONS</p>
-        <p>36,KALPATRU SHOPPING CENTER</p>
-        <p>SHASTRI NAGAR,JAIPUR</p>
-        <p>GSTIN 08AAYFS0701N1ZN</p>
+        <p id="biller_name">SHRI RANI SATI ASSOCIATIONS</p>
+        <p id="biller_address">36,KALPATRU SHOPPING CENTER</p>
+        <p id="biller_state">SHASTRI NAGAR,JAIPUR</p>
+        <p id="biller_gstin">GSTIN 08AAYFS0701N1ZN</p>
         <p></p>
         <p></p>
       </div>
@@ -58,7 +59,7 @@
             <td>
               invoice No
             </td>
-            <td>
+            <td id="transaction_id">
               :0028
             </td>
           </tr>
@@ -66,7 +67,7 @@
             <td>
               Dated
             </td>
-            <td>
+            <td id="document_date">
               :09/06/2018
             </td>
           </tr>
@@ -74,7 +75,7 @@
             <td>
               Place Of Supply
             </td>
-            <td>
+            <td id="biller_place">
               :Rajasthan
             </td>
           </tr>
@@ -90,7 +91,7 @@
             <td>
               Transport No.
             </td>
-            <td>
+            <td id="transport_no">
               :
             </td>
           </tr>
@@ -98,15 +99,15 @@
             <td>
               Vehicle No.
             </td>
-            <td>
+            <td id="vehicle_no">
               :
             </td>
           </tr>
           <tr>
-            <td>
+            <td >
               Station
             </td>
-            <td>
+            <td id="biller_states">
               :Jaipur
             </td>
           </tr>
@@ -127,7 +128,7 @@
             <th>Amount(R.S)</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody id="product_detail">
             <tr>
               <td>
                 1
@@ -164,32 +165,32 @@
           <h6>DISCOUNT</h6>
           </br>
           </br>
-          <h6>ADD: IGST</h6>
+          <h6 id= "gst_type">ADD: IGST</h6>
         </div>
         <div class="col-md-6 text-center">
           </br>
           </br>
-          <h6>@5%</h6>
+          <h6 id="discount_per">@0%</h6>
           </br>
           </br>
-          <h6>@18%</h6>
+          <h6 id="gst_per">@18%</h6>
         </div>
       </div>
       </div>
       <div class="col-md-2">
-        <p>67500</p>
-         <p>- 3375</p>
-         <p>64125.50</p>
-         <p>11542</p>
+        <p id="total_tax_val">67500</p>
+         <p id="discount_val">- 0</p>
+         <p id="after_discount">64125.50</p>
+         <p id="gst_val">11542</p>
       </div>
     </div>
     <div class="row border-bottom border-dark">
       <div class="col-md-10">
-        <p>Grand Total: 300kgs
+        <p id="grand_total_unit">Grand Total: 300kgs
         </p>
       </div>
       <div class="col-md-2">
-        <p>75667.50</p>
+        <p id="grand_total_rs">75667.50</p>
       </div>
     </div>
     <div class="row border-bottom border-dark">
@@ -198,7 +199,7 @@
         </p>
       </div>
       <div class="col-md-2">
-        <p>75667.50</p>
+        <p id="grand_total">75667.50</p>
       </div>
     </div>
     <div class="row">
@@ -219,7 +220,7 @@
           <h6>IFS Code UTIB0000196</h6>
         </div>
         <div class="col-md-12 mt-2">
-          <h6>SKY TRADE INTERNATIONAL</h6>
+          <h6 id="owner_names">SKY TRADE INTERNATIONAL</h6>
         </div>
       </div>
     </div>
@@ -228,39 +229,8 @@
     function print_page() {
         window.print();
     }
-    var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
-var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
-
-function inWords (num,sd) {
-    if ((num = num.toString()).length > 9) return 'overflow';
-    n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
-    if (!n) return; var str = '';
-    str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
-    str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
-    str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
-    str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
-    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + sd + ' ' + 'and'  : '';
-    return str;
-
-
-}
-$(document).ready(function () {
-  var number = 75667.50;
-  var d = number.toString();
-  var rup = d.split('.')[0];
-  var paise = d.split('.')[1];
-  var myString = inWords(paise,"Paise");
-  var n = myString.split(" ");;
-  var res = n[n.length - 1];
-  if (res == "and")
-  {
-    myString = myString.substring(0, myString.lastIndexOf(" "));
-  }
-
-  $("#inword").html(inWords(rup,"Rupees") + " " + myString  + " " + "Only");
-});
-      // You can also require other files to run in this process
-      //require('./renderer.js')
+  // You can also require other files to run in this process
+      require('./invoice.js')
     </script>
   </body>
 </html>
