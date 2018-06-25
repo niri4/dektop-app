@@ -1,6 +1,6 @@
 var global_hash = {};
 function errorHandler(transaction, error) {
-  alert('Error: ' + error.message + ' code: ' + error.code);
+  //alert('Error: ' + error.message + ' code: ' + error.code);
    console.log('Error: ' + error.message + ' code: ' + error.code);
 }
 
@@ -211,7 +211,9 @@ $("#insert-more").click(function () {
 $( document ).ready(function() {
     ListDBValues();
     ListDBProductValues();
+    ListDBowner();
     val = findrow();
+    $('#document_date').val(date_get());
     $('input').keypress(function(event) {
     if (event.keyCode == 13) {
         event.preventDefault();
@@ -225,6 +227,22 @@ $( document ).ready(function() {
     }
 });
 
+function date_get(){
+  var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+
+var yyyy = today.getFullYear();
+if(dd<10){
+    dd='0'+dd;
+}
+if(mm<10){
+    mm='0'+mm;
+}
+var today = yyyy + '-' + mm +  '-' + dd;
+return  today;
+}
+
 function ListDBValues() {
    $('#biller_name').html('<option>--Please Select --</option>');
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
@@ -237,6 +255,32 @@ function ListDBValues() {
                        var row = result.rows.item(i);
                        $('#biller_name').append("<option value=" + row.name + " id= " + row.Id + ">" + row.Id + '. ' +
                            row.name +   "</option>");
+                   }
+               }
+           }, errorHandler);
+   }, errorHandler, nullHandler2);
+
+   return;
+}
+
+
+function ListDBowner() {
+   //$('#owner_name').html();
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (transaction) {
+       transaction.executeSql('SELECT * FROM Owner;', [],
+           function (transaction, result) {
+               if (result != null && result.rows != null) {
+                   console.log(result.rows)
+                   for (var i = 0; i < result.rows.length; i++) {
+                       var row = result.rows.item(i);
+                       $('#ownwer_name').val(row.name);
+                       $('#owner_gstin').val(row.gstin);
+                       $('#ownwer_address').val(row.address);
+                       $('#ownwer_address1').val(row.address1);
+                       $('#owner_place').val(row.place);
+                       $('#owner_pincode').val(row.pincode);
+                       $('#owner_state').val(row.state);
                    }
                }
            }, errorHandler);
@@ -267,7 +311,6 @@ function ListDBProductValues() {
 
 $(document).on('change', '#biller_name', function () {
   var isd = $(this).children(":selected").attr("id");
-  alert(isd);
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (transaction) {
        transaction.executeSql("SELECT * FROM Contact WHERE Id =" + isd + ";", [],
