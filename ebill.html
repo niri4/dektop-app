@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Shaperzz Billing App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="./jquery/jquery-3.2.1.slim.min.js"></script>
+    <script src="./jquery/popper.min.js" ></script>
+    <script src="./jquery/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="loader" class="intial_c">
+      <div class="loader"></div>
+      <p style="text-align: center;"> pLease Wait</p>
+    </div>
+<div class="container" id="class_access">
+  <div class="h-100 row align-items-center">
+    <div class="col">
+    <div class="form-group">
+      <a href="./transcation.html" class="btn btn-primary">Back</a>
+      <p>Price is more than 50,000 please fill the form at ebill</p>
+      <div class="form-group">
+        <input type="text" id="e_way_bill_no" placeholder="E-Way Bill Number" class="form-control" /></br>
+      </div>
+      <div class="form-group">
+        <input type="submit" id="submit" class="btn btn-success">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+    <script>
+    require('./ebill.js');
+    </script>
+  </body>
+</html>
+<style>
+html,
+body {
+    height: 100%;
+}
+
+    .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.intial_c{
+  display: none;
+}
+.loader {
+  margin-left: 45%;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* #background{
+    position:absolute;
+    z-index:0;
+    background:white;
+    /* display:block;
+    min-height:50%;
+    min-width:50%; */
+    top: 52%;
+    color:yellow;
+    display: flex;
+  /* flex-direction: column;*/
+  align-items: center;
+} */
+
+#content{
+    position:absolute;
+    z-index:1;
+}
+
+#bg-text
+{
+    color:lightgrey;
+    font-size:120px;
+    transform:rotate(300deg);
+    -webkit-transform:rotate(300deg);
+
+}
+</style>

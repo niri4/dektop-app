@@ -30,17 +30,9 @@ if (pair[0] == variable) {
 $(document).ready(function () {
   var param1var = getQueryVariable("id");
   add_params(param1var);
-  alert(param1var);
+  //alert(param1var);
 
 });
-
-
-
-
-
-
-
-
 
 function add_params(isd) {
    //$('#owner_name').html();
@@ -120,7 +112,14 @@ function productdetail(row){
   {
   myString = myString.substring(0, myString.lastIndexOf(" "));
   }
-  var inword  = inWords(rup,"Rupees") + " " + myString  + " " + "Only";
+  var rupeestring = inWords(rup,"Rupees");
+  var nrs = rupeestring.split(" ");;
+  var resrs = nrs[nrs.length - 1];
+  if ((resrs == "and" )&& (d.split('.')[1] == null))
+  {
+  rupeestring = rupeestring.substring(0, rupeestring.lastIndexOf(" "));
+  }
+  var inword  =  rupeestring + " " + myString  + " " + "Only";
   $("#grand_total").html(row.total_amount);
   $("#grand_total_rs").html(row.total_amount);
   $("#total_tax_val").html(row.total_taxable_value);

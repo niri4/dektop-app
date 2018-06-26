@@ -82,6 +82,7 @@ function  particular_ele(isd){
                     "<tr>" + '\n' +"<th>" + "Mode" + "</th>" +  "\n" + "<th>" + row.mode +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Vehicle Type" + "</th>" +  "\n" + "<th>" + row.vehicle_type +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Vehicle Number" + "</th>" +  "\n" + "<th>" + row.vehicle_no +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "E-Way Bill Number" + "</th>" +  "\n" + "<th>" + row.e_way_bill_no +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Total Amount" + "</th>" +  "\n" + "<th>" + row.total_amount +  "</th>" + "\n" + " </tr>" + "\n"
                   );
                   }
@@ -102,9 +103,34 @@ $(document).on('click', '#del', function () {
 
 $(document).on('click', '#print', function () {
   var isd = $(this).val();
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (tx) {
+       tx.executeSql("SELECT *  FROM Transcation WHERE Id =" + isd, [],
+           function (transaction, result) {
+               if (result != null && result.rows != null) {
+                   console.log(result.rows)
+                   for (var i = 0; i < result.rows.length; i++) {
+                       var row = result.rows.item(i);
+                       console.log(row.transcation_type);
+                       if (i==0){
+                         if (row.total_amount > 50000){
+                           if(row.e_way_bill_no == null){
+                             window.location = './ebill.html?id=' + isd;
+                           }
+                           else{
+                             window.location = './invoice.html?id=' + isd;
+                           }
+                         }
+                         else{
+                           window.location = './invoice.html?id=' + isd;
+                         }
 
-     window.location = './invoice.html?id=' + isd;
+                       }
 
+                   }
+               }
+           }, errorHandler);
+   });
 })
 
 
@@ -114,7 +140,7 @@ $(document).ready(function () {
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT) ', [], nullHandler, errorHandler);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT,e_way_bill_no TEXT) ', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack);
 });
 ListDBValues();
