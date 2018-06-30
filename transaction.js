@@ -23,7 +23,7 @@ function ListDBValues() {
                        var row = result.rows.item(i);
                        console.log(row.transcation_type);
                        $('#transcation_id').append("<tr>" + "\n" + "<td>" + row.Id + "</td>" + "\n" + "<td>" + row.transcation_type + "</td>" +
-                           "\n"  + "<td>" + row.sub_type + "</td>" + "\n" + "<td>" + row.document_type + "</td>" +  "\n" +  "<td>" + row.document_no + "</td>" + "\n" +  "<td>" +  "<button class='btn btn-primary'  id='modeltrans' value=" + row.Id +  "> Detail</button>" + "</td>" + "\n" + "<td>" + "<button class='btn btn-primary' id='del' value=" + row.Id +  "> Delete</button>" +  "</td>"+ "\n" + "<td>" + "<button class='btn btn-success' id='print' value=" + row.Id +  "> Print</button>" +  "</td>" + "\n" +  "</tr>");
+                           "\n"  + "<td>" + row.sub_type + "</td>" + "\n" + "<td>" + row.document_type + "</td>" + "\n" +  "<td>" +  "<button class='btn btn-primary'  id='modeltrans' value=" + row.Id +  "> Detail</button>" + "</td>" + "\n" + "<td>" + "<button class='btn btn-primary' id='del' value=" + row.Id +  "> Delete</button>" +  "</td>"+ "\n" + "<td>" + "<button class='btn btn-success' id='print' value=" + row.Id +  "> Print</button>" +  "</td>" + "\n" +  "</tr>");
                    }
                }
            }, errorHandler);
@@ -83,6 +83,8 @@ function  particular_ele(isd){
                     "<tr>" + '\n' +"<th>" + "Vehicle Type" + "</th>" +  "\n" + "<th>" + row.vehicle_type +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Vehicle Number" + "</th>" +  "\n" + "<th>" + row.vehicle_no +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "E-Way Bill Number" + "</th>" +  "\n" + "<th>" + row.e_way_bill_no +  "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Discount" + "</th>" +  "\n" + "<th>" + row.discount + "%" + "</th>" + "\n" + " </tr>" + "\n" +
+                    "<tr>" + '\n' +"<th>" + "Total Discount" + "</th>" +  "\n" + "<th>" + row.total_discount +  "</th>" + "\n" + " </tr>" + "\n" +
                     "<tr>" + '\n' +"<th>" + "Total Amount" + "</th>" +  "\n" + "<th>" + row.total_amount +  "</th>" + "\n" + " </tr>" + "\n"
                   );
                   }

@@ -123,7 +123,9 @@ function productdetail(row){
   $("#grand_total").html(row.total_amount);
   $("#grand_total_rs").html(row.total_amount);
   $("#total_tax_val").html(row.total_taxable_value);
-  $("#after_discount").html(row.total_taxable_value);
+  $("#after_discount").html(row.total_taxable_value - row.total_discount);
+  $("#discount_per").html(row.discount + "%");
+  $("#discount_val").html("-" + row.total_discount);
   var total_quantity = quantity;
   $("#grand_total_unit").html("Grand Total" + " " + total_quantity.reduce(getSum) + " "+ unit[0]);
   $("#inword").html(toTitleCase(inword));
@@ -161,6 +163,7 @@ function productdetail(row){
   $("#gst_type").html("ADD:" + " " + gst_type.join(','));
   $("#gst_per").html("@" + gst + "%");
   $("#gst_val").html(gst_amount);
+
 
 }
 

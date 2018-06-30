@@ -56,5 +56,12 @@ $(document).on('click', '#submit', function () {
    db.transaction(function (tx) {
        tx.executeSql('INSERT INTO Product (product_name, product_price, product_code) VALUES (?, ?,?)', [$('#ProductName').val(), $('#ProductPrice').val(), $('#ProductCode').val()], nullHandler, errorHandler);
    });
+   let myNotification = new Notification('Shaperzz Bill', {
+     body: 'Product created successfully'
+   })
+
+   myNotification.onclick = () => {
+     console.log('Notification clicked')
+   }
    ListDBValues();
 })

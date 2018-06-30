@@ -19,7 +19,7 @@
     <link href="./dist1/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <script src="./jquery/jquery-3.2.1.slim.min.js"></script>
     <script src="./jquery/popper.min.js" ></script>
-    <script src="./jquery/jquery.min.js"></script> 
+    <script src="./jquery/jquery.min.js"></script>
    </head>
   <body class="skin-blue">
     <div class="wrapper">
@@ -268,7 +268,7 @@
                         <th style="text-align:center;">Quantity</th>
                         <th style="text-align:center;">Unit</th>
                         <th style="text-align:center;">Value/Taxable value</th>
-                        <th colspan="4"style="text-align:center;">Tax Rate (C + S + I + Cess)</th>
+                        <th colspan="5" style="text-align:center;">Tax Rate (C + S + I + Cess + Discount)</th>
                     </thead>
 
                     <tbody id="product_id">
@@ -304,6 +304,9 @@
                             <td>
                               <input type="number" id="cess"  name="cess" class="form-control change" placeholder="CESS Value" min="0" value="0">
                             </td>
+                            <td>
+                              <input type="number" id="discount"  name="discount" class="form-control change" placeholder="Discount" min="0" value="0">
+                            </td>
                             <td><button class="delete_row btn btn-primary change1" ><i class="fa fa-trash"></i></button></td>
                             </td>
                         </tr>
@@ -323,6 +326,7 @@
                     <th>SGST Amount</th>
                     <th>IGST Amount</th>
                     <th>CESS Amount</th>
+                    <th>Total Discount</th>
                     <th>Total Amount</th>
                   </thead>
                   <tbody>
@@ -341,6 +345,9 @@
                         </td>
                         <td>
                           <input type="number" id="cess_amount"  name="cess_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
+                        </td>
+                        <td>
+                          <input type="number" id="total_discount" name="total_discount" class="form-control change" placeholder="Value" value="0.0" min="0">
                         </td>
                         <td>
                           <input type="number" id="total_amount" name="total_amount" class="form-control change" placeholder="Value" value="0.0" min="0">
@@ -362,7 +369,7 @@
                     <input type="text" class="form-control" id="tansporter_name" placeholder="Name">
                   </div>
                   <div class="form-group">
-                    <label for="transporter_id">Transporter Id</label>
+                    <label for="transporter_id">Transporter ID</label>
                     <input type="text" class="form-control" id="transporter_id" placeholder="Transportal Id">
                   </div>
                   <div class="form-group">

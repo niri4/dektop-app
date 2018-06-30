@@ -56,5 +56,12 @@ $(document).on('click', '#submit', function () {
    db.transaction(function (tx) {
        tx.executeSql('INSERT INTO Contact (name, gstin,state,address,address1,place,pincode,country,city) VALUES (?,?,?,?,?,?,?,?,?)', [$('#Name').val(), $('#gstin').val(), $('#state').val(), $('#address').val(), $('#address1').val(), $('#place').val(), $('#pincode').val(), $('#country').val(),$('#city').val()], nullHandler, errorHandler);
    });
+   let myNotification = new Notification('Shaperzz Bill', {
+     body: 'Contact created successfully'
+   })
+
+   myNotification.onclick = () => {
+     console.log('Notification clicked')
+   }
    ListDBValues();
 })

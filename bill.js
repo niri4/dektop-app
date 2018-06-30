@@ -46,14 +46,23 @@ function calculate_hash_on_delete(hash,index){
   var sgst_ar =  hash["sgst"].split(',');
   var igst_ar = hash["igst"].split(',');
   var cess_ar = hash["cess"].split(',');
+  var discount = hash["discount"].split(',');
   var total_val = hash["total_taxable_value"];
   var cgst_val = hash["cgst_amount"];
   var sgst_val = hash["sgst_amount"];
   var igst_val = hash["igst_amount"];
   var cess_val = hash["cess_amount"];
   var qar = quantity.split(',');
+  var discount_amount = 0;
 
-    var f = (qar[index] * value_array[index]);
+    if (discount[index] != null){
+        latest_discount =  (qar[index] * value_array[index] * discount[index]) / 100;
+         discount_amount = discount_amount + latest_discount;
+        var f = (qar[index] * value_array[index])  - latest_discount ;
+    }
+    else{
+      var f = (qar[index] * value_array[index]);
+    }
     total_val = total_val - (qar[index] * value_array[index]);
     if (cgst_ar[index] != null){
       cgst_val = cgst_val - ( (f * cgst_ar[index])/100 );
@@ -67,13 +76,14 @@ function calculate_hash_on_delete(hash,index){
     if (cess_ar[index] != null){
       cess_val = cess_val - ( (f * cess_ar[index])/100 );
     }
-  var totl = total_val + cgst_val + sgst_val + igst_val + cess_val;
+  var totl = (total_val - discount_amount) + cgst_val + sgst_val + igst_val + cess_val;
   $('#total_taxable_value').val(total_val);
   $('#cgst_amount').val(cgst_val);
   $('#sgst_amount').val(sgst_val);
   $('#igst_amount').val(igst_val);
   $('#cess_amount').val(cess_val);
   $('#total_amount').val(totl);
+  $('#total_discount').val(discount_amount);
 
 
 }
@@ -126,6 +136,8 @@ function  calculate_hash(hash){
   var sgst_ar =  hash["sgst"].split(',');
   var igst_ar = hash["igst"].split(',');
   var cess_ar = hash["cess"].split(',');
+  var discount = hash["discount"].split(',');
+  var discount_amount = 0;
   var total_val =0;
   var cgst_val =0;
   var sgst_val =0;
@@ -133,7 +145,14 @@ function  calculate_hash(hash){
   var cess_val =0;
   var qar = quantity.split(',');
   for (var j = 0; j < qar.length; j++) {
-    var f = (qar[j] * value_array[j]);
+    if (discount[j] != null){
+      latest_discount =  (qar[j] * value_array[j] * discount[j]) / 100;
+         discount_amount = discount_amount + latest_discount;
+        var f = (qar[j] * value_array[j])  - latest_discount ;
+    }
+    else{
+      var f = (qar[j] * value_array[j]);
+    }
     total_val = total_val + (qar[j] * value_array[j]);
     if (cgst_ar[j] != null){
       cgst_val = cgst_val + ( (f * cgst_ar[j])/100 );
@@ -150,13 +169,14 @@ function  calculate_hash(hash){
 
 
   }
-  var totl = total_val + cgst_val + sgst_val + igst_val + cess_val;
+  var totl = (total_val - discount_amount) + cgst_val + sgst_val + igst_val + cess_val;
   $('#total_taxable_value').val(total_val);
   $('#cgst_amount').val(cgst_val);
   $('#sgst_amount').val(sgst_val);
   $('#igst_amount').val(igst_val);
   $('#cess_amount').val(cess_val);
   $('#total_amount').val(totl);
+  $('#total_discount').val(discount_amount);
 
 }
 
@@ -399,7 +419,8 @@ $(document).ready(function () {
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT,tansporter_name TEXT,transporter_id TEXT,approxiamate_distance TEXT,mode TEXT,vehicle_type TEXT,vehicle_no TEXT,e_way_bill_no TEXT) ', [], nullHandler, errorHandler);
+       //tx.executeSql('DROP TABLE Transcation');
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Transcation(Id INTEGER NOT NULL PRIMARY KEY, transcation_type TEXT, sub_type TEXT ,document_type TEXT,document_no TEXT,document_date TEXT,ownwer_name TEXT, owmer_gstin TEXT,owner_state TEXT,ownwer_address TEXT,ownwer_address1 TEXT,owner_place TEXT,owner_pincode TEXT,biller_name TEXT,biller_gstin TEXT,biller_state TEXT,shipping_address TEXT,shipping_address1 TEXT,shiping_place TEXT,shiping_state TEXT,shiping_pincode TEXT,product_select TEXT,product_description TEXT,hsn TEXT,quantity TEXT,unit TEXT,taxable_value TEXT,cgst TEXT,sgst TEXT,igst TEXT,cess TEXT,total_taxable_value TEXT,cgst_amount TEXT,sgst_amount TEXT,igst_amount TEXT,cess_amount TEXT,total_amount TEXT,tansporter_name TEXT,transporter_id TEXT,approxiamate_distance TEXT,mode TEXT,vehicle_type TEXT,vehicle_no TEXT,e_way_bill_no TEXT,discount TEXT,total_discount TEXT) ', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack);
 });
 // this is called when a successful transaction happens
@@ -412,7 +433,7 @@ function successCallBack() {
 $(document).on('click', '#submit', function (e) {
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
-       tx.executeSql('INSERT INTO Transcation (transcation_type, sub_type,document_type,document_no,document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount,tansporter_name,transporter_id,approxiamate_distance,mode,vehicle_type,vehicle_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$('input[name=transcation_type]:checked').val(), $('input[name=sub_type]:checked').val(), $('#document_type').val(), $('#document_no').val(), $('#document_date').val(),  $('#ownwer_name').val(), $('#owner_gstin').val(), $('#ownwer_address').val(), $('#ownwer_address1').val(),$('#owner_place').val(), $('#owner_state').val(), $('#owner_pincode').val(),$('#biller_name').val(),$('#biller_gstin').val(),$('#biller_state').val(),$('#shipping_address').val(),$('#shipping_address1').val(),$('#shiping_place').val(),$('#shiping_state').val(),$('#shiping_pincode').val(),global_hash["product_select"],global_hash["product_description"],global_hash["hsn"],global_hash["quantity"],global_hash["unit"],global_hash["taxable_value"],global_hash["cgst"],global_hash["sgst"],global_hash["igst"],global_hash["cess"],$('#total_taxable_value').val(),$('#cgst_amount').val(),$('#sgst_amount').val(),$('#igst_amount').val(),$('#cess_amount').val(),$('#total_amount').val(),$('#tansporter_name').val(),$('#transporter_id').val(),$('#approxiamate_distance').val(),$('input[name=mode]:checked').val(),$('input[name=vehicle_type]:checked').val(),$('#vehicle_no').val()], nullHandler, errorHandler);
+       tx.executeSql('INSERT INTO Transcation (transcation_type, sub_type,document_type,document_no,document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount,tansporter_name,transporter_id,approxiamate_distance,mode,vehicle_type,vehicle_no,discount,total_discount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$('input[name=transcation_type]:checked').val(), $('input[name=sub_type]:checked').val(), $('#document_type').val(), $('#document_no').val(), $('#document_date').val(),  $('#ownwer_name').val(), $('#owner_gstin').val(), $('#ownwer_address').val(), $('#ownwer_address1').val(),$('#owner_place').val(), $('#owner_state').val(), $('#owner_pincode').val(),$('#biller_name').val(),$('#biller_gstin').val(),$('#biller_state').val(),$('#shipping_address').val(),$('#shipping_address1').val(),$('#shiping_place').val(),$('#shiping_state').val(),$('#shiping_pincode').val(),global_hash["product_select"],global_hash["product_description"],global_hash["hsn"],global_hash["quantity"],global_hash["unit"],global_hash["taxable_value"],global_hash["cgst"],global_hash["sgst"],global_hash["igst"],global_hash["cess"],$('#total_taxable_value').val(),$('#cgst_amount').val(),$('#sgst_amount').val(),$('#igst_amount').val(),$('#cess_amount').val(),$('#total_amount').val(),$('#tansporter_name').val(),$('#transporter_id').val(),$('#approxiamate_distance').val(),$('input[name=mode]:checked').val(),$('input[name=vehicle_type]:checked').val(),$('#vehicle_no').val(),global_hash["discount"],$('#total_discount').val()], nullHandler, errorHandler);
    });
    let myNotification = new Notification('Shaperzz Bill', {
      body: 'Bill Created Successfully'
@@ -421,5 +442,5 @@ $(document).on('click', '#submit', function (e) {
    myNotification.onclick = () => {
      console.log('Notification clicked')
    }
-
+    window.location = './transcation.html';
 })

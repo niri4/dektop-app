@@ -18,16 +18,16 @@ $(document).on('click', '#submit', function (e) {
   //alert(param1var);
    var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
    db.transaction(function (tx) {
-     tx.executeSql('UPDATE Transcation SET e_way_bill_no=? WHERE id=?', [$('#e_way_bill_no').val(),param1var]);
+     tx.executeSql('UPDATE Transcation SET e_way_bill_no= ? WHERE Id= ?', [$('#e_way_bill_no').val(),param1var]);
      let myNotification = new Notification('Shaperzz Bill', {
        body: 'Successfully  Add E-Way Bill No'
      })
 
      myNotification.onclick = () => {
        console.log('Notification clicked')
-     }[]
-        var param1var = getQueryVariable("id");
-      window.location = './invoice.html?id=' + param1var;
+     }
+      //   var param1var = getQueryVariable("id");
+       window.location = './invoice.html?id=' + param1var;
    });
 
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 
 function errorHandler(transaction, error) {
-  //alert('Error: ' + error.message + ' code: ' + error.code);
+  alert('Error: ' + error.message + ' code: ' + error.code);
    console.log('Error: ' + error.message + ' code: ' + error.code);
 }
 function successCallBack1() {
