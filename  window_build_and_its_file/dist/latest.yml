@@ -1,0 +1,9 @@
+version: 1.0.0
+files:
+  - url: Shaperzz-Billing-App-Setup-1.0.0.exe
+    sha512: OkgJMaRy9nCmWN+D82sqN1nQ6CN8pedHgYzkXWntMRjVVsSbkABtqx2YT/32WeSDZqqxVI3+wO8J7sDPnAkYRw==
+    size: 41529090
+path: Shaperzz-Billing-App-Setup-1.0.0.exe
+sha512: OkgJMaRy9nCmWN+D82sqN1nQ6CN8pedHgYzkXWntMRjVVsSbkABtqx2YT/32WeSDZqqxVI3+wO8J7sDPnAkYRw==
+sha2: 6b60ef3e139750df7e7203f4db1b4cc4fd186a9d10d6a2ce477605b1cfcec13f
+releaseDate: '2018-07-01T16:00:18.017Z'
