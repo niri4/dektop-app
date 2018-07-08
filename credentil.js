@@ -198,7 +198,7 @@ $(document).ready(function () {
 
                    else{
                      $('#pro_email').val(result.rows[0].email);
-
+                     $('#pro_access_token').val(result.rows[0].access_token);
                    }
 
 

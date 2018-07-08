@@ -62,7 +62,7 @@ $(document).ready(function () {
      // Drop Query
      //tx.executeSql('DROP TABLE Owner');
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Owner(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, place TEXT,state TEXT,gstin TEXT,address TEXT,address1 TEXT,pincode TEXT,password TEXT,logout TEXT,email TEXT)', [], nullHandler, errorHandler);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Owner(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, place TEXT,state TEXT,gstin TEXT,address TEXT,address1 TEXT,pincode TEXT,password TEXT,logout TEXT,email TEXT,access_token TEXT)', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack1);
 });
 ListDBValues();
@@ -78,8 +78,8 @@ $(document).on('click', '#submit', function () {
 
        var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
        db.transaction(function (tx) {
-           tx.executeSql('INSERT INTO Owner(place,address,address1,state,pincode,gstin,name,password,email,logout) VALUES (?,?,?,?,?,?,?,?,?,?)', [msg["billing_app"]["place"],msg["billing_app"]["address"], msg["billing_app"]["address1"],
-           msg["billing_app"]["state"],msg["billing_app"]["postal_code"],msg["billing_app"]["gstin"], msg["billing_app"]["name"],"123456",email,0], nullHandler, errorHandler);
+           tx.executeSql('INSERT INTO Owner(place,address,address1,state,pincode,gstin,name,password,email,logout,access_token) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [msg["billing_app"]["place"],msg["billing_app"]["address"], msg["billing_app"]["address1"],
+           msg["billing_app"]["state"],msg["billing_app"]["postal_code"],msg["billing_app"]["gstin"], msg["billing_app"]["name"],"123456",email,0,access_token], nullHandler, errorHandler);
        });
        ListDBValues();
      });

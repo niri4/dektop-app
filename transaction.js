@@ -138,6 +138,72 @@ $(document).on('click', '#modeltrans', function () {
   particular_ele(isd);
 })
 
+
+$(document).on('click', '#shaperzz_formet', function () {
+  var bb = {};
+  var email ='';
+  var access_token ='';
+  var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+  db.transaction(function (transactiona) {
+      transactiona.executeSql('SELECT * FROM Owner;', [],
+          function (transactiona, result1) {
+              if (result1 != null && result1.rows != null) {
+                  console.log(result1.rows.length);
+                  if (result1.rows.length == 0){
+                  }
+
+                  else{
+                    email = result1.rows[0].email;
+                    access_token = result1.rows[0].access_token;
+                    db.transaction(function (transaction) {
+                        transaction.executeSql('SELECT * FROM Transcation', [],
+                            function (transaction, result) {
+                                if (result != null && result.rows != null) {
+                                    console.log(result.rows)
+                                    bb =  result.rows;
+                                    $.ajax({url: "http://sandbox.shaperzz.com/api/v1/billing_data_sync?data=" +  JSON.stringify(bb) + "&email=" + email + "&access_token=" + access_token,
+                                           type: 'POST',
+
+                                       }).done(function( msg ) {
+                                         if (msg["status"] == "true"){
+                                           let myNotification = new Notification('Shaperzz Bill', {
+                                             body: 'Export request successfully updated on server'
+                                           })
+
+                                           myNotification.onclick = () => {
+                                             console.log('Notification clicked')
+                                           }
+
+                                         }
+                                         else{
+                                           let myNotification = new Notification('Shaperzz Bill', {
+                                             body: 'Export request not updated please try after sometime'
+                                           })
+
+                                           myNotification.onclick = () => {
+                                             console.log('Notification clicked')
+                                           }
+
+                                         }
+
+
+                                         });
+                                }
+                            }, );
+                    });
+                  }
+
+
+              }
+              else {
+              }
+          });
+  });
+
+
+       //ListDBValues();
+})
+
 function export_date_data(date_todys) {
   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
   db.transaction(function (tx) {
