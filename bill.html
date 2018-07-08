@@ -43,6 +43,19 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">Hi, User</span>
                 </a>
+                <ul class="dropdown-menu">
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="./user_profile.html" class="btn btn-success btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-left" style="margin-Left: 28px;">
+                      <a href="./reset_database.html" class="btn btn-danger btn-flat">Reset</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-warning btn-flat" id="logout">Log out</a>
+                    </div>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -436,6 +449,7 @@
     require('./plugins/fastclick/fastclick.min.js');
     require("./dist1/js/app.min.js");
     require('./bill.js')
+    require('./credentil.js');
     </script>
 
     <!-- page script -->

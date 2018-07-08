@@ -1,6 +1,6 @@
 // this is called when an error happens in a transaction
 function errorHandler(transaction, error) {
-  alert('Error: ' + error.message + ' code: ' + error.code);
+//  alert('Error: ' + error.message + ' code: ' + error.code);
    console.log('Error: ' + error.message + ' code: ' + error.code);
 
 }

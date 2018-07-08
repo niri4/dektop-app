@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="./jquery/jquery-3.2.1.slim.min.js"></script>
+    <script src="./jquery/popper.min.js" ></script>
+    <script src="./jquery/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="./file_export/tableexport.min.css" rel="stylesheet">
+    <link href="./file_export/examples.css" rel="stylesheet">
+    <script src="./jquery/jquery.min.js"></script>
+
+</head>
+<body id="formats">
+
+<main>
+    <h1>Formats
+        <code class="small">formats: ['xlsx']</code>
+    </h1>
+    <p>list of available formats:</p>
+    <ul>
+        <li><code>xlsx</code>: Open XML spreadsheet</li>
+        <li><code>xls</code>: Binary spreadsheet</li>
+        <li><code>csv</code>: comma separated value</li>
+        <li><code>txt</code>: plain text</li>
+    </ul>
+    <table id="formats-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Age</th>
+            <th>Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Thor Walton</td>
+            <td>Regional Director</td>
+            <td>45</td>
+            <td>$98,540</td>
+        </tr>
+        <tr>
+            <td>Travis Clarke</td>
+            <td>Software Engineer</td>
+            <td>30</td>
+            <td>$275,000</td>
+        </tr>
+        <tr>
+            <td>Suki Burks</td>
+            <td>Office Manager</td>
+            <td>22</td>
+            <td>$67,670</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td class="disabled"></td>
+            <td class="disabled"></td>
+            <td class="disabled"></td>
+            <th>$441,210</th>
+        </tr>
+        </tfoot>
+    </table>
+
+    <p class="info">Highlighted in <span class="target">yellow</span>, you will notice that <code>formats: ['xlsx']</code> <i>limits the exportable filetypes to those listed in the formats array</i>.</p>
+</main>
+
+<script type="text/javascript" src="./file_export/xlsx.core.min.js"></script>
+<script type="text/javascript" src="./file_export/FileSaver.js"></script>
+<script type="text/javascript" src="./file_export/tableexport.min.js"></script>
+<script>
+
+</script>
+
+</body>
+</html>

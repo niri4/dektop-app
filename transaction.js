@@ -1,6 +1,6 @@
 // this is called when an error happens in a transaction
 function errorHandler(transaction, error) {
-  alert('Error: ' + error.message + ' code: ' + error.code);
+  //alert('Error: ' + error.message + ' code: ' + error.code);
    console.log('Error: ' + error.message + ' code: ' + error.code);
 
 }
@@ -32,10 +32,129 @@ function ListDBValues() {
    return;
 }
 
+
+function ListDBSAVE() {
+   $('#print_id').html('');
+   var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+   db.transaction(function (transaction) {
+       transaction.executeSql('SELECT * FROM Transcation', [],
+           function (transaction, result) {
+               if (result != null && result.rows != null) {
+                   console.log(result.rows)
+                   for (var i = 0; i < result.rows.length; i++) {
+                       var row = result.rows.item(i);
+                       console.log(row.transcation_type);
+                       $('#print_id').append("<tr>" + "\n" +
+                        "<td>" + row.Id + ' ' + "</td>" + "\n" +
+                        "<td>" + row.transcation_type + ' ' + "</td>" + "\n"  +
+                         "<td>" + row.sub_type  + ' ' + "</td>" + "\n" +
+                         "<td>" + row.document_type + ' ' + "</td>" + "\n" +
+                         "<td>" + row.document_no + ' '  + "</td>" + "\n" +
+                          "<td>" + row.document_date + ' ' + "</td>" + "\n" +
+                          "<td>" + row.biller_name + ' ' + "</td>" + "\n" +
+                          "<td>" + row.biller_gstin + ' ' + "</td>" + "\n" +
+                          "<td>" + row.biller_state + ' ' + "</td>" + "\n" +
+                          "<td>" + row.shipping_address + " " + row.shipping_address1 + "</td>" + "\n" +
+                          "<td>" + row.shiping_place + ' ' + "</td>" + "\n" +
+                          "<td>" + row.shiping_state  + ' ' + "</td>" + "\n" +
+                          "<td>" + row.shiping_pincode + ' ' + "</td>" + "\n" +
+                          "<td>" + row.product_select + ' ' + "</td>" + "\n" +
+                          "<td>" + row.product_description + ' '  + "</td>" + "\n" +
+                          "<td>" + row.hsn + ' ' + "</td>" + "\n" +
+                          "<td>" + row.unit + ' ' + "</td>" + "\n" +
+                          "<td>" + row.quantity + ' '  + ' ' + "</td>" + "\n" +
+                          "<td>" + row.taxable_value + ' ' + ' ' + "</td>" + "\n" +
+                          "<td>" + row.cgst + "%" + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.sgst + "%" + ' ' + "</td>" + "\n" +
+                          "<td>" + row.igst + "%" + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.cess + "%" + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.total_taxable_value + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.cgst_amount + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.sgst_amount + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.igst_amount + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.cess_amount  + ' '+  "</td>" + "\n" +
+                          "<td>" + row.total_amount  + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.tansporter_name  +  "</td>" + "\n" +
+                          "<td>" + row.transporter_id  +  "</td>" + "\n" +
+                          "<td>" + row.approxiamate_distance +  "</td>" + "\n" +
+                          "<td>" + row.mode  + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.vehicle_type + ' '  +  "</td>" + "\n" +
+                          "<td>" + row.vehicle_no  + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.discount + "%" + ' '  +  "</td>" + "\n" +
+                          "<td>" + row.total_discount  + ' ' +  "</td>" + "\n" +
+                          "<td>" + row.e_way_bill_no  + ' ' +  "</td>" + "\n" +
+                          "</tr>");
+                   }
+               }
+           }, errorHandler);
+   }, errorHandler, nullHandler);
+
+   return;
+}
+
+function date_tody() {
+  var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+}
+
+if(mm<10) {
+    mm = '0'+mm
+}
+
+return today =  dd + '/' + mm + '/' + yyyy;
+}
+
+$(document).on('click', '#csv_formet', function () {
+  var date_todys = date_tody();
+  $('#formats-table').tableExport({type:'csv',fileName: 'Shaperzz_bill_history' + '_' + date_todys });
+  export_date_data(date_todys);
+})
+$(document).on('click', '#excel_formet', function () {
+  var date_todys = date_tody();
+  $('#formats-table').tableExport({type:'excel',fileName: 'Shaperzz_bill_history' + '_' + date_todys });
+  export_date_data(date_todys);
+})
+$(document).on('click', '#xml_formet', function () {
+  var date_todys = date_tody();
+  $('#formats-table').tableExport({type:'excel',fileName: 'Shaperzz_bill_history' + '_' + date_todys,
+                          mso: {fileFormat:'xmlss',
+                                worksheetName: ['Table 1','Table 2', 'Table 3']}});
+  export_date_data(date_todys);
+})
+
+$(document).on('click', '#text_formet', function () {
+  var date_todys = date_tody();
+
+  $('#formats-table').tableExport({type:'txt',fileName: 'Shaperzz_bill_history' + '_' + date_todys });
+  export_date_data(date_todys);
+})
 $(document).on('click', '#modeltrans', function () {
   var isd = $(this).val();
   particular_ele(isd);
 })
+
+function export_date_data(date_todys) {
+  var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    tx.executeSql('DROP TABLE  LastExport');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS LastExport(Id INTEGER NOT NULL PRIMARY KEY, export_date TEXT)');
+      tx.executeSql('INSERT INTO LastExport (export_date ) VALUES (?)', [date_todys], nullHandler, errorHandler);
+  });
+  $('#export_detail').html('Last export on:' + date_todys);
+  let myNotification = new Notification('Shaperzz Bill', {
+    body: 'Export request ready for download'
+  })
+
+  myNotification.onclick = () => {
+    console.log('Notification clicked')
+  }
+
+}
 
 function  particular_ele(isd){
   $('#result_render').html('');
@@ -146,6 +265,6 @@ $(document).ready(function () {
    }, errorHandler, successCallBack);
 });
 ListDBValues();
-
+ListDBSAVE();
 
 //document_date,ownwer_name,owmer_gstin,ownwer_address,ownwer_address1,owner_place,owner_state,owner_pincode,biller_name,biller_gstin,biller_state,shipping_address,shipping_address1,shiping_place,shiping_state,shiping_pincode,product_select,product_description,hsn,quantity,unit,taxable_value,cgst,sgst,igst,cess,total_taxable_value,cgst_amount,sgst_amount,igst_amount,cess_amount,total_amount

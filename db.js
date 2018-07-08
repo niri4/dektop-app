@@ -6,7 +6,6 @@ function errorHandler(transaction, error) {
 
 // this is called when a successful transaction happens
 function successCallBack() {
-  debugger;
    console.log("DEBUGGING: success");
    $("#loader").show();
    $("#class_access").hide();
@@ -26,14 +25,22 @@ function ListDBValues() {
        transaction.executeSql('SELECT * FROM Owner;', [],
            function (transaction, result) {
                if (result != null && result.rows != null) {
-                   console.log(result.rows.length);
+                   console.log(result.rows);
                    if (result.rows.length == 0){
 
                     successCallBack1();
                    }
                    else{
                      $("#class_access").hide();
-                     successCallBack();
+                     if (result.rows[0].logout == 1){
+                       console.log("DEBUGGING: success");
+                       $("#loader").show();
+                       $("#class_access").hide();
+                       window.location="./login.html";
+                     }
+                     else{
+                       successCallBack();
+                     }
                    }
 
 
@@ -55,7 +62,7 @@ $(document).ready(function () {
      // Drop Query
      //tx.executeSql('DROP TABLE Owner');
        // Create a table in if not exist
-       tx.executeSql('CREATE TABLE IF NOT EXISTS Owner(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, place TEXT,state TEXT,gstin TEXT,address TEXT,address1 TEXT,pincode TEXT)', [], nullHandler, errorHandler);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Owner(Id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, place TEXT,state TEXT,gstin TEXT,address TEXT,address1 TEXT,pincode TEXT,password TEXT,logout TEXT,email TEXT)', [], nullHandler, errorHandler);
    }, errorHandler, successCallBack1);
 });
 ListDBValues();
@@ -71,8 +78,8 @@ $(document).on('click', '#submit', function () {
 
        var db = openDatabase('mydb-test', '1.0', 'sqllite test database', 2 * 1024 * 1024);
        db.transaction(function (tx) {
-           tx.executeSql('INSERT INTO Owner(place,address,address1,state,pincode,gstin,name) VALUES (?,?,?,?,?,?,?)', [msg["billing_app"]["place"],msg["billing_app"]["address"], msg["billing_app"]["address1"],
-           msg["billing_app"]["state"],msg["billing_app"]["postal_code"],msg["billing_app"]["gstin"], msg["billing_app"]["name"]], nullHandler, errorHandler);
+           tx.executeSql('INSERT INTO Owner(place,address,address1,state,pincode,gstin,name,password,email,logout) VALUES (?,?,?,?,?,?,?,?,?,?)', [msg["billing_app"]["place"],msg["billing_app"]["address"], msg["billing_app"]["address1"],
+           msg["billing_app"]["state"],msg["billing_app"]["postal_code"],msg["billing_app"]["gstin"], msg["billing_app"]["name"],"123456",email,0], nullHandler, errorHandler);
        });
        ListDBValues();
      });

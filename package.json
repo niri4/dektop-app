@@ -43,7 +43,9 @@
       "icon": "build/icon.ico"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "tableexport": "^5.0.2"
+  },
   "devDependencies": {
     "electron": "latest",
     "electron-builder": "latest"

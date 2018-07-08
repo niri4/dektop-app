@@ -42,6 +42,19 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">Hi, User</span>
                 </a>
+                <ul class="dropdown-menu">
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="./user_profile.html" class="btn btn-success btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-left" style="margin-Left: 28px;">
+                      <a href="./reset_database.html" class="btn btn-danger btn-flat">Reset</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-warning btn-flat" id="logout">Log out</a>
+                    </div>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -98,6 +111,65 @@
                   <h3 class="box-title">Transcation History</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  <table  class="table table-bordered table-hover" id="formats-table" style="display: none;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col"> Transcation Type</th>
+                        <th scope="col"> Sub Type</th>
+                        <th scope="col">Document Type</th>
+                        <th scope="col">Document Number</th>
+                        <th scope="col">Document Date</th>
+                        <th scope="col">Biller Name</th>
+                        <th scope="col">Biller GSTIN</th>
+                        <th scope="col">Biller State</th>
+                        <th scope="col">Shipping Address</th>
+                        <th scope="col">Shiping Place</th>
+                        <th scope="col">Shiping State</th>
+                        <th scope="col">Shiping Pincode</th>
+                        <th scope="col">Product Select</th>
+                        <th scope="col">Product Description</th>
+                        <th scope="col">HSN</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Taxable Value</th>
+                        <th scope="col">CGST</th>
+                        <th scope="col">SGST</th>
+                        <th scope="col">IGST</th>
+                        <th scope="col">CESS</th>
+                        <th scope="col">Total Taxable Value</th>
+                        <th scope="col">CGST Amount</th>
+                        <th scope="col">SGST Amount</th>
+                        <th scope="col">IGST Amount</th>
+                        <th scope="col">CESS Amount</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Tansporter Name</th>
+                        <th scope="col">Transporter ID</th>
+                        <th scope="col">Approxiamate Distance</th>
+                        <th scope="col">Mode</th>
+                        <th scope="col">Vehicle Type</th>
+                        <th scope="col">Vehicle No</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Total Discount</th>
+                        <th scope="col">E-Way Bill Number</th>
+                      </tr>
+                    </thead>
+                    <tbody id="print_id">
+
+                    </tbody>
+                  </table>
+                  <table  class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col"><button class='btn-md btn-primary' id='csv_formet'> Export CSV</button></th>
+                        <th scope="col"><button class='btn-md btn-primary' id='excel_formet' style="background-color: chocolate;"> Export Excel</button></th>
+                        <th scope="col"><button class='btn-md btn-warning' id='xml_formet'> Export XML</button></th>
+                        <th scope="col"><button class='btn-md btn-danger' id='text_formet'> Export Text</button></th>
+                        <th scope="col"><button class='btn-md btn-success' id='shaperzz_formet'> Export to shaperzz</button></th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <p style="color: red;" id="export_detail">Last export on:</p>
                   <table  class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -148,6 +220,8 @@
     require('./plugins/fastclick/fastclick.min.js');
     require("./dist1/js/app.min.js");
     require('./transaction.js')
+    require('./export.js')
+    require('./credentil.js')
     </script>
 
     <!-- page script -->
@@ -167,3 +241,10 @@
 
   </body>
 </html>
+
+<script type="text/javascript" src="./file_export/xlsx.core.min.js"></script>
+<script type="text/javascript" src="./file_export/FileSaver.js"></script>
+<script type="text/javascript" src="./file_export/tableexport.min.js"></script>
+<script>
+
+</script>
